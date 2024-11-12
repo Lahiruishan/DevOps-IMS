@@ -1,4 +1,4 @@
-import { Img, Button, Text } from "../../components";
+import {  Button, Text } from "../../components";
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 

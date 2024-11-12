@@ -32,30 +32,29 @@ export default function RegistrationForm() {
   const [formError, setFormError] = useState('');
 
   const navigate = useNavigate();
-
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
-    // Validate full name length
-    if (fullName.length < 5 || fullName.length > 35) {
-      setFullNameError("Full Name must be between 5 and 35 characters.");
+    // Validate full name length (5-32 characters)
+    if (fullName.length < 5 || fullName.length > 32) {
+      setFullNameError("Name must be between 5 and 32 characters.");
       return;
     } else {
       setFullNameError('');
     }
 
-    // Validate batch year
+    // Validate batch ID (4-digit)
     if (batchId.length !== 4 || isNaN(batchId)) {
-      setBatchIdError("Batch year must be a 4-digit number.");
+      setBatchIdError("Batch ID must be a 4-digit number.");
       return;
     } else {
       setBatchIdError('');
     }
 
-    // Validate mobile numbers
-    const mobileRegex = /^\+94\d{9}$/;
-    if (!mobileRegex.test(studentMobile) || !mobileRegex.test(parentMobile)) {
-      setMobileError("Mobile number must start with +94 and be followed by 9 digits.");
+    // Validate student and parent mobile numbers (10-12 digits)
+    const phoneRegex = /^\d{10,12}$/;
+    if (!phoneRegex.test(studentMobile) || !phoneRegex.test(parentMobile)) {
+      setMobileError("Mobile number must be between 10 and 12 digits.");
       return;
     } else {
       setMobileError('');
@@ -63,22 +62,21 @@ export default function RegistrationForm() {
 
     // Validate gender selection
     if (!gender) {
-      setGenderError("Please select a gender.");
+      setGenderError("Gender is required.");
       return;
     } else {
       setGenderError('');
     }
 
-    // Validate password
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
-    if (!passwordRegex.test(password)) {
-      setPasswordError("Password must be 8-32 characters and include at least one uppercase letter, one lowercase letter, and one number.");
+    // Validate password (if needed, add additional checks based on backend rules)
+    if (!password || password.length < 8 || password.length > 32) {
+      setPasswordError("Password must be 8-32 characters.");
       return;
     } else {
       setPasswordError('');
     }
 
-    // Validate confirm password
+    // Confirm passwords match
     if (password !== confirmPassword) {
       setConfirmPasswordError("Passwords do not match.");
       return;
@@ -86,58 +84,43 @@ export default function RegistrationForm() {
       setConfirmPasswordError('');
     }
 
-
-    // Validate profile picture size
+    // Validate profile picture (optional, <2MB)
     if (profilePic && profilePic.size > 2 * 1024 * 1024) {
-      setProfilePicError("Profile picture must be less than 2MB.");
+      setProfilePicError("Profile picture must be under 2MB.");
       return;
     } else {
       setProfilePicError('');
     }
 
-    // Check if all fields are filled
-    if (!fullName || !schoolName || !batchId || !streamId || !address || !email || !studentMobile || !parentName || !parentMobile || !gender || !password || !confirmPassword) {
-      setFormError("Please fill in all fields.");
-      return;
-    } else {
-      setFormError('');
-    }
-
-    // Construct the data object to send to the backend
+    // Construct data and send it to the backend
     const registrationData = {
       full_name: fullName,
       email,
       batch_id: batchId,
       stream_id: streamId,
-      district: address, // Assuming address is used for district
+      district: address,
       school: schoolName,
       gender,
       phone: studentMobile,
       pwd: password,
-       };
+    };
 
     try {
-      // Send POST request to the backend registration endpoint
       const response = await axios.post(
-        "http://localhost:3005/student/student-registration",
+        "http://localhost:3001/student/student-registration",
         registrationData
       );
 
-      // Handle success (e.g., navigate to another page)
       if (response.status === 201) {
         alert("Registration successful");
         navigate("/RegistrationFee");
       }
     } catch (error) {
-      // Handle error
-      if (error.response && error.response.data.errors) {
-        console.error("Validation errors:", error.response.data.errors);
-      } else {
-        console.error("Error during registration:", error.message);
-      }
+      console.error("Error during registration:", error.message);
       alert("Registration failed. Please try again.");
     }
   };
+
 
   const handleLogin = () => {
     navigate("/StudentLoginPage");
@@ -279,7 +262,7 @@ export default function RegistrationForm() {
       id="student-mobile"
       value={studentMobile}
       onChange={(e) => setStudentMobile(e.target.value)}
-      placeholder="Mobile Number (+94xxxxxxxxx)"
+      placeholder="Mobile Number (0xxxxxxxxx)"
       className="w-full text-neutral-600 placeholder:text-neutral-600 px-4 bg-transparent outline-none"
     />
     {mobileError && <span className="text-red-500 text-sm">{mobileError}</span>}
@@ -310,7 +293,7 @@ export default function RegistrationForm() {
       id="parent-mobile"
       value={parentMobile}
       onChange={(e) => setParentMobile(e.target.value)}
-      placeholder="Mobile Number (+94xxxxxxxxx)"
+      placeholder="Mobile Number (0xxxxxxxxx)"
       className="w-full text-neutral-600 placeholder:text-neutral-600 px-4 bg-transparent outline-none"
     />
   </div>
