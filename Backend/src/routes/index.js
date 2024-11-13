@@ -1,8 +1,8 @@
 import { Router } from "express";
-import studentsRouter from "./students.mjs";      // routes for student api's
+import studentsRouter from "./students.js";      // routes for student api's
 import commonRouter from "./common.js";          // routes for common api's
 import adminRouter from "./admin.js";            // routes for admin api's
-import staffRouter from "./staff.mjs";            // routes for staff api's
+import staffRouter from "./staff.js";            // routes for staff api's
 
 const router = Router();
 

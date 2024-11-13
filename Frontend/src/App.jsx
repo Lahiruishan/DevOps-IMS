@@ -6,20 +6,26 @@ function App() {
   const [backendData, setBackendData] = useState({ users: [] });
 
   useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchBackendData = async () => {
+      try {
+        const response = await fetch("/api");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
         setBackendData(data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchBackendData();
   }, []);
 
   return (
-   
-      <Router>
-        <Routes />
-      </Router>
-   
+    <Router>
+      <Routes />
+    </Router>
   );
 }
 

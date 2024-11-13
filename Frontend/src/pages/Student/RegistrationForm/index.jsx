@@ -5,7 +5,37 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function RegistrationForm() {
+  const history=useNavigate();
 
+ 
+  async function submit(e){
+      e.preventDefault();
+
+      try{
+
+          await axios.post("http://localhost:3001",{
+              email,password
+          })
+          .then(res=>{
+              if(res.data=="exist"){
+                  alert("User already exists")
+              }
+              else if(res.data=="notexist"){
+                  history("/home",{state:{id:email}})
+              }
+          })
+          .catch(e=>{
+              alert("wrong details")
+              console.log(e);
+          })
+
+      }
+      catch(e){
+          console.log(e);
+
+      }
+
+  }
   
   const [address, setAddress] = useState('');
   const [batchId, setBatchId] = useState('');

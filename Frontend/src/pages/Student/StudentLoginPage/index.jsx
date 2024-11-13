@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import {Helmet} from "react-helmet";
 import {  Text,Button } from "../../../components";
 import { useNavigate} from 'react-router-dom';
+import axios from "axios";
+
 
 
 
 export default function StudentLoginPage() {
+
+  const history = useNavigate();
+  const [email,setEmail]=useState('')
+  const [password,setPassword]=useState('')
+
+async function submit(e){
+  e.preventDefault();
+
+  try{
+      await axios.post("http://localhost:3001",{
+        email,password 
+      })
+     .then(res =>{
+      if(res.data="exit"){
+       history("/Frontend/src/pages/Student/StudentDashboard/index.jsx",{state:{id:email}})
+      }
+      else if(res.data="not exit"){
+        alert("User havenot sign up")}
+     })
+     .catch (e=>{
+      alert("wrong details")
+      console.log(e);
+     })
+  }
+  catch(e){
+         console.log(e);
+  }
+}
+
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -15,6 +46,7 @@ export default function StudentLoginPage() {
   const handleRegister = () => {
       navigate('/registrationForm'); 
   };
+
   return (
     <>
      {/* Helmet is used to manage the document head */}
@@ -44,10 +76,11 @@ export default function StudentLoginPage() {
   </Text>
   {/* Login form */}
   <form action="" class="px-10">
+
 {/* Username field */}
   <div className="ml-6 flex flex-col items-start self-stretch md:ml-0">
   <label for="" class="text-neutral-1900 text-base font-normal ">User Name :</label>
-  <input type="text" name="" placeholder="Enter your Email Address " id=""
+  <input type="email" onChange={(e)=>{setEmail(e.target.value)}} placeholder="Enter your Email Address " id=""
   class="w-full text-neutral-600 placeholder:text-neutral-600 px-4 bg-transparent outline-none" />
 
   <div className="mt-4 h-[42px] self-stretch rounded-[15px] bg-blue_gray-100"/>
@@ -55,7 +88,7 @@ export default function StudentLoginPage() {
  {/* Password field */}
 <div className="mt-7 flex flex-col">
 <label for="" class="text-neutral-1900 text-base font-normal">Password :</label>
-<input type="text" name="" placeholder="Enter your Password " id=""
+<input type="password" onChange={(e)=>{setPassword(e.target.value)}} placeholder="Enter your Password " id=""
    class="w-full text-neutral-600 placeholder:text-neutral-600 px-4 bg-transparent outline-none " />
                            
 </div>
