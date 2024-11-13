@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import db from "./index.mjs";
+import db from "./index.js";
 
 // Students table
 const Student = db.define('Students', {

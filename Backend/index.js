@@ -1,63 +1,32 @@
-// import express from "express"
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import cors from "cors";
 
-// const app =express()
-
-// app.get("/",(req,res)=>
-// res.send("server is ready"))
-
-// const port = process.env.PORT || 3001
-
-// app.listen(port,()=>{
-//     console.log('serve at http://localhost: $(port)')
-// })
-
-// backend/server.js
-const express = require("express");
-const cors = require("cors");
-const bcrypt = require("bcrypt");
-const { MongoClient } = require("mongodb");
+dotenv.config();
 
 const app = express();
-const PORT = 3001;
-const client = new MongoClient("your_mongo_db_connection_string");
 
+// Middleware to parse JSON and enable CORS
 app.use(express.json());
 app.use(cors());
 
-const collection = client.db("your_db").collection("users");
-
-app.get("/", (req, res) => res.json({ status: "running" }));
-
-app.post("/", async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const user = await collection.findOne({ email });
-        if (user && await bcrypt.compare(password, user.password)) {
-            res.json("exist");
-        } else {
-            res.json("notexist");
-        }
-    } catch (e) {
-        res.status(500).json("fail");
-    }
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log("Connected to MongoDB");
+}).catch((error) => {
+  console.error("MongoDB connection error:", error);
 });
 
-app.post("/signup", async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const user = await collection.findOne({ email });
-        if (user) {
-            res.json("exist");
-        } else {
-            const hashedPassword = await bcrypt.hash(password, 10);
-            await collection.insertOne({ email, password: hashedPassword });
-            res.status(201).json("notexist");
-        }
-    } catch (e) {
-        res.status(500).json("fail");
-    }
-});
+// Sample route to check if server is working
+app.get("/", (req, res) => res.send("Server is ready"));
 
-client.connect().then(() => {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Define the server port
+const port = process.env.PORT || 3001;
+
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
 });

@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     const fetchBackendData = async () => {
       try {
-        const response = await fetch("/api");
+        const response = await fetch("http://localhost:3001/api"); // Include backend URL with port
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
