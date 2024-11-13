@@ -1,7 +1,17 @@
 import { Router } from "express";
+<<<<<<< Updated upstream:Backend/src/routes/students.js
 import { checkSchema, validationResult, matchedData } from "express-validator";
 import { studentRegistrationValidation } from '../utils/studentDetailsValidation.js';
 import Student from '../models/Student.js';
+=======
+import { validationResult, matchedData, checkSchema } from "express-validator";
+import { studentRegistrationValidation, studentLoginValidation, studentUpdateValidation } from '../utils/studentDetailsValidation.js';
+import { isAuth } from "../utils/studentMiddleware.js";    // Authentication middleware
+import { registrationNo, extractRegNo } from "../utils/utils.mjs";    
+import { Op } from 'sequelize';
+import Models from "../db/models.mjs";
+
+>>>>>>> Stashed changes:Backend/src/routes/students.mjs
 
 const router = Router();
 

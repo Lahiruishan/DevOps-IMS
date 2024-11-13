@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< Updated upstream
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "mongoose": "^8.8.1"
+=======
+    "express": "^4.21.1",
+    "expresss": "^0.0.0"
+>>>>>>> Stashed changes
   }
 }

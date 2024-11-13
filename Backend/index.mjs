@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:Backend/index.js
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -6,6 +7,16 @@ import cors from "cors";
 dotenv.config();
 
 const app = express();
+=======
+const express = require("express");
+const cors = require("cors");
+const bcrypt = require("bcrypt");
+const { MongoClient } = require("mongodb");
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+const client = new MongoClient("your_mongo_db_connection_string");
+>>>>>>> Stashed changes:Backend/index.mjs
 
 // Middleware to parse JSON and enable CORS
 app.use(express.json());

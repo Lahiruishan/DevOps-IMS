@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Models from "../db/models.js";
+import Models from "../db/models.mjs";
 //import { isAuth } from "../utils/middleware.mjs";    // Authentication middleware
 
 const router = Router();

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { validationResult, matchedData, checkSchema } from "express-validator";
 import { staffUpdateValidation, staffLoginValidation, staffBiographyValidation, staffQualificationValidation, 
     staffQualificationUpdateValidation } from "../utils/staffDetailsValidation.js";
-import Models from "../db/models.js";
+import Models from "../db/models.mjs";
 import { bookId } from "../utils/utils.js";
 //import { isAuth } from "../utils/middleware.mjs";    // Authentication middleware
 
