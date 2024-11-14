@@ -6,7 +6,9 @@ import axios from "axios";
 
 export default function RegistrationForm() {
   const history=useNavigate();
-
+  const handleRegFee = () => {
+    navigate("/RegistrationFee");
+  };
  
   async function submit(e){
       e.preventDefault();
@@ -128,7 +130,6 @@ export default function RegistrationForm() {
       email,
       batch_id: batchId,
       stream_id: streamId,
-      district: address,
       school: schoolName,
       gender,
       phone: studentMobile,
@@ -136,10 +137,16 @@ export default function RegistrationForm() {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/student/student-registration",
-        registrationData
-      );
+      const response = await axios.post("http://localhost:3001/student/student-registration", {
+        full_name: fullName,
+        email,
+        batch_id: batchId,
+        stream_id: streamId,
+        school: schoolName,
+        gender,
+        phone: studentMobile,
+        pwd: password,
+      });
 
       if (response.status === 201) {
         alert("Registration successful");
@@ -151,11 +158,9 @@ export default function RegistrationForm() {
     }
   };
 
-
-  const handleLogin = () => {
+ const handleLogin = () => {
     navigate("/StudentLoginPage");
   };
-
   return (
     <>
       <Helmet>
@@ -406,7 +411,17 @@ export default function RegistrationForm() {
     size="md"
     className="!bg-indigo-10 text-neutral-150 flex items-center justify-center mt-[35px] mb-[10px] col-span-2"
   >
-    Register
+    Submit Details
+  </Button>
+
+   {/*Feee button */}
+   <Button
+    type="submit"
+    size="md"
+    className="!bg-indigo-10 text-neutral-150 flex items-center justify-center mt-[35px] mb-[10px] col-span-2"
+    onClick={handleRegFee}
+  >
+    Register 
   </Button>
 </form>
               {/* Link to login page */}

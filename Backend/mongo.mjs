@@ -1,24 +1,27 @@
-const mongoose=require("mongoose")
-mongoose.connect("mongodb://0.0.0.0:27017/react-login-tut")
-.then(()=>{
-    console.log("mongodb connected");
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://127.0.0.1:27017/react-login-tut", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
-.catch(()=>{
-    console.log('failed');
-})
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch((error) => {
+    console.error("Failed to connect to MongoDB:", error);
+  });
 
+const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
 
-const newSchema=new mongoose.Schema({
-    email:{
-        type:String,
-        required:true
-    },
-    password:{
-        type:String,
-        required:true
-    }
-})
+const User = mongoose.model("User", userSchema);
 
-const collection = mongoose.model("collection",newSchema)
-
-module.exports=collection
+module.exports = User;

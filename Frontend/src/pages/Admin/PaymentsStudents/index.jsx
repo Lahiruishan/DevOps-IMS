@@ -2,8 +2,24 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import {   Heading, Button } from "../../../components";
 import IMA from "../../../components/IMA";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 export default function PaymentsStudents() {
+  
+  const navigate = useNavigate();
+  const handlePayment2025 = () => {
+    navigate("/RegistrationFee");
+  };
+  const handlePayment2026 = () => {
+    navigate("/RegistrationFee");
+  }; 
+  const handlePayment2027 = () => {
+    navigate("/RegistrationFee");
+  };
+  
   return (
     <>
     {/* Helmet is used to manage the document head */}
@@ -57,14 +73,14 @@ export default function PaymentsStudents() {
               {/* Main content container */}
               <div className="mt-8 flex items-start gap-[30px] sm:flex-col">
                 <div className="mt-[109px] flex flex-col gap-[21px]">
-                    <Button size="6xl" as="p">
-                        1.2024 A/L
+                    <Button size="6xl" as="p" onClick={handlePayment2025}>
+                        1.2025 A/L
                     </Button>
-                    <Button size="6xl" as="p">
-                        2.2025 A/L
+                    <Button size="6xl" as="p"onClick={handlePayment2026}>
+                        2.2026 A/L
                     </Button>
-                    <Button size="6xl" as="p">
-                        3.2026 A/L
+                    <Button size="6xl" as="p"onClick={handlePayment2027}>
+                        3.2027 A/L
                     </Button>
                 </div>
                  {/* Heading for Student's Payments */}

@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import db from "./index.js";
+import db from "./index.mjs";
 
 // Students table
 const Student = db.define('Students', {
@@ -612,3 +612,4 @@ export default {
     Book,
     Tip
 };
+
