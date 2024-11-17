@@ -62,9 +62,9 @@ async function submit(e){
      
     <div className="flex items-center gap -[50px] md:flex-col">
     <div className="flex w-[48%] flex-col items-center justify-center bg-indigo-900 pb-[558px] pl-14 pt-[297px] md:w-full md:p-5 md:py-5 md:pl-5">
-    <Text size="vl" as="p" className="mb-4 ml-96 md:ml-0 !text-purple-50 !font-aclonica">
+    <Text size="lg" as="p" className="mb-4 ml-96 md:ml-0 !text-purple-50 !font-aclonica">
 
-      Institute <br/>  Management <br/>  System
+      Institute <br/> Management <br/> System
    
       </Text>
     </div>
