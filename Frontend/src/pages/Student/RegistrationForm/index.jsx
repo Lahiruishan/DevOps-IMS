@@ -3,6 +3,9 @@ import { Helmet } from "react-helmet";
 import { Text, Button } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "API/firebase";
+import { addDoc, collection, doc, query, setDoc } from "firebase/firestore";
 
 export default function RegistrationForm() {
   const history=useNavigate();
@@ -70,7 +73,6 @@ export default function RegistrationForm() {
     // Validate full name length (5-32 characters)
     if (fullName.length < 5 || fullName.length > 32) {
       setFullNameError("Name must be between 5 and 32 characters.");
-      return;
     } else {
       setFullNameError('');
     }
@@ -78,7 +80,6 @@ export default function RegistrationForm() {
     // Validate batch ID (4-digit)
     if (batchId.length !== 4 || isNaN(batchId)) {
       setBatchIdError("Batch ID must be a 4-digit number.");
-      return;
     } else {
       setBatchIdError('');
     }
@@ -87,7 +88,6 @@ export default function RegistrationForm() {
     const phoneRegex = /^\d{10,12}$/;
     if (!phoneRegex.test(studentMobile) || !phoneRegex.test(parentMobile)) {
       setMobileError("Mobile number must be between 10 and 12 digits.");
-      return;
     } else {
       setMobileError('');
     }
@@ -95,7 +95,6 @@ export default function RegistrationForm() {
     // Validate gender selection
     if (!gender) {
       setGenderError("Gender is required.");
-      return;
     } else {
       setGenderError('');
     }
@@ -103,7 +102,6 @@ export default function RegistrationForm() {
     // Validate password (if needed, add additional checks based on backend rules)
     if (!password || password.length < 8 || password.length > 32) {
       setPasswordError("Password must be 8-32 characters.");
-      return;
     } else {
       setPasswordError('');
     }
@@ -111,7 +109,6 @@ export default function RegistrationForm() {
     // Confirm passwords match
     if (password !== confirmPassword) {
       setConfirmPasswordError("Passwords do not match.");
-      return;
     } else {
       setConfirmPasswordError('');
     }
@@ -119,7 +116,6 @@ export default function RegistrationForm() {
     // Validate profile picture (optional, <2MB)
     if (profilePic && profilePic.size > 2 * 1024 * 1024) {
       setProfilePicError("Profile picture must be under 2MB.");
-      return;
     } else {
       setProfilePicError('');
     }
@@ -137,26 +133,47 @@ export default function RegistrationForm() {
     };
 
     try {
-      const response = await axios.post("http://localhost:3001/student/student-registration", {
-        full_name: fullName,
-        email,
-        batch_id: batchId,
-        stream_id: streamId,
-        school: schoolName,
-        gender,
-        phone: studentMobile,
-        pwd: password,
-      });
+      // const response = await axios.post("http://localhost:3001/student/student-registration", {
+      //   full_name: fullName,
+      //   email,
+      //   batch_id: batchId,
+      //   stream_id: streamId,
+      //   school: schoolName,
+      //   gender,
+      //   phone: studentMobile,
+      //   pwd: password,
+      // });
 
-      if (response.status === 201) {
-        alert("Registration successful");
-        navigate("/RegistrationFee");
-      }
+      // if (response.status === 201) {
+      //   alert("Registration successful");
+      //   navigate("/RegistrationFee");
+      // }
+      createUserWithEmailAndPassword(auth,email,password).then((result)=>{
+        const user = result.user;
+        const uid = user.uid;
+        updateProfile(user,{displayName:fullName,photoURL:''}).then(()=>{
+          registerUser(uid,{...registrationData,pwd:''}).then(()=>{
+            alert("Registration successful");
+          })
+        })
+        navigate('/StudentDashboard')
+      }).catch((e)=>{
+        alert(e)
+      })
     } catch (error) {
       console.error("Error during registration:", error.message);
       alert("Registration failed. Please try again.");
     }
   };
+
+  const registerUser =async(uid,details)=>{
+    const q = query(doc(db,'users',uid))
+    try{
+      await setDoc(q,details)
+    }catch(e){
+      console.log(e)
+    }
+  }
 
  const handleLogin = () => {
     navigate("/StudentLoginPage");

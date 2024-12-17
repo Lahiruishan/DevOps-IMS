@@ -3,6 +3,8 @@ import {Helmet} from "react-helmet";
 import {  Text,Button } from "../../../components";
 import { useNavigate} from 'react-router-dom';
 import axios from "axios";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "API/firebase";
 
 
 
@@ -39,8 +41,12 @@ async function submit(e){
 
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-      navigate('/StudentDashboard'); 
+  const handleLogin = async() => {
+      //navigate('/StudentDashboard'); 
+      await signInWithEmailAndPassword(auth,email,password).catch((e)=>{
+        alert(e)
+      })
+      navigate('/StudentDashboard')
   };
 
   const handleRegister = () => {
