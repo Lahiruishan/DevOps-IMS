@@ -50,7 +50,7 @@ async function submit(e){
   };
 
   const handleRegister = () => {
-      navigate('/registrationForm'); 
+      navigate('/RegistrationForm'); 
   };
 
   return (

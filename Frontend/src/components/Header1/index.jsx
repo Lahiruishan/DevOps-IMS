@@ -39,7 +39,7 @@ export default function Header1({ ...props }) {
             <li>
               <a href="#" className="cursor-pointer group">
                 <Heading1 size="xl" as="h5" className="transition-transform duration-500 ease-out group-hover:rotate-x-6 group-hover:rotate-y-6" style={{ color: 'white' }}>
-                  Teacher
+                  Teachers
                 </Heading1>
               </a>
             </li>

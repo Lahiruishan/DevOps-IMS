@@ -21,7 +21,7 @@ export default function HomePageNewPage() {
         />
       </Helmet>
 
-      <div className="min-h-screen flex flex-col w-full bg-gradient-to-r from-blue-300 to-green-300">
+      <div className="min-h-screen flex flex-col w-full bg-gradient-to-r from-blue-400 to-green-500">
         <Header1 className="w-full bg-indigo-900" />
 
         {/* Main Content */}
