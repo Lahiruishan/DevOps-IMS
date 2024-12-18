@@ -39,8 +39,17 @@ async function submit(e){
 
   const navigate = useNavigate();
 
+<<<<<<< Updated upstream
   const handleLogin = () => {
       navigate('/StudentDashboard'); 
+=======
+  const handleLogin = async() => {
+      //navigate('/StudentDashboard'); 
+      await signInWithEmailAndPassword(auth,email,password).catch((e)=>{
+        alert(e)
+      })
+      navigate('/StudentDashboardPage')
+>>>>>>> Stashed changes
   };
 
   const handleRegister = () => {
