@@ -5,7 +5,7 @@ import { useRoutes } from "react-router-dom";
 // Admin
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import WebsiteChanges from "./pages/Admin/WebsiteChange"
-import Payments from "./pages/Admin/Payments";
+import Payments from "./pages/Admin/Payments"; 
 import PaymentsStudents from "./pages/Admin/PaymentsStudents";
 import PaymentsTeachers from "./pages/Admin/PaymentsTeachers";
 import StudentDetails from "./pages/Admin/StudentDetails";
@@ -35,6 +35,12 @@ import TeacherTimeTable from "./pages/Teacher/TeacherTimeTable";
 
 
 import HomePageNewPage from "./pages/HomePageNew/index";
+
+import Teacher from "./pages/HomePageNew/Homepages/Teacher/Teacher";
+import TimeTable from "./pages/HomePageNew/Homepages/TimeTable/TimeTable";
+import Blog from "./pages/HomePageNew/Homepages/Blog/Blog.jsx";
+import MiniVideos from "./pages/HomePageNew/Homepages/MiniVideos/MiniVideos.jsx";
+
 
 const ProjectRoutes = () => {
   let element = useRoutes([
@@ -150,6 +156,14 @@ const ProjectRoutes = () => {
       element:<TeacherTimeTable/>
 
     }
+    ,
+    {path:"Teacher",element:<Teacher/>}  // -- Here im declaring routes in the navigation bar --
+    ,
+    {path:"Blog",element:<Blog/>}             // -- Navigation bar -> blog --
+    ,
+    {path:"TimeTable",element:<TimeTable/>}  // -- Navigation bar -> TT --
+    ,
+    {path:"MiniVideos",element:<MiniVideos/>} // -- Navigation bar -> MV --
 
   ]);
 

@@ -1,0 +1,120 @@
+/* Header container */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 16px;
+    background-color: rgba(252, 254, 195, 0.734); /* Indigo-200 color with transparency */
+    font-family: 'Roboto', sans-serif;
+    perspective: 1000px; /* Enables 3D effects */
+    position: sticky; /* Keep the header fixed at the top */
+    top: 0; /* Stick to the top */
+    z-index: 1000; /* Ensure it stays on top of other elements */
+    backdrop-filter: blur(10px); /* Optional: Adds frosted glass effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  }
+  
+  /* Logo container */
+  .logo-container {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .logo {
+    width: 144px; 
+    height: 112px; 
+    border-radius: 8px; /* This one for rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease, box-shadow 0.5s ease; /* Smooth transitions */
+  }
+  
+  .logo:hover {
+    transform: scale(1.1) rotateX(6deg) rotateY(6deg); /* 3D hover effect */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Navigation container */
+  .nav-container {
+    display: flex;
+    align-items: center;
+    background-color: rgba(20, 94, 230, 0); /* Lighter indigo background */
+    padding: 0; /* Remove padding around the navigation */
+    gap: 32px; /* Increase space between items */
+    border-radius: 50px; /* Rounded container for a smooth look */
+  }
+  
+  /* Navigation list */
+  .nav-list {
+    display: flex;
+    gap: 24px; /* Space between the items */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Individual Navigation link styling */
+  .nav-link {
+    display: inline-block;
+    padding: 14px 24px; /* Increased padding for more space around the text */
+    font-size: 1.25rem; /* Approx size-xl in Tailwind */
+    color: #e6f1f1f3; /* New color for the items (e.g., a coral-red shade) */
+    text-decoration: none;
+    background-color: #0d41ec3f; /* White background for the navigation items */
+    border-radius: 30px; /* Oval shape */
+    transition: transform 0.5s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    transform: rotateX(6deg) rotateY(6deg); /* 3D hover effect */
+    background-color: #ff6f61; /* Coral-red on hover */
+    color: white; /* White text on hover */
+  }
+  
+  /* Sign-in button */
+  .sign-in-button {
+    margin-left: 20px; /* Similar to ml-5 in Tailwind */
+    padding: 8px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: white;
+    color: #4a56e2; /* Indigo-600 */
+    border: none;
+    border-radius: 20px; /* Round button */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .sign-in-button:hover {
+    transform: scale(1.1); /* Hover effect */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 16px;
+    }
+  
+    .nav-container {
+      flex-direction: column;
+      width: 100%;
+      padding: 16px;
+      margin: 0; /* Remove auto margin for smaller screens */
+    }
+  
+    .nav-list {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+  
+    .sign-in-button {
+      margin-left: 0;
+      margin-top: 16px;
+      width: 100%;
+    }
+  }
+  
